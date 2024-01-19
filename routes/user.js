@@ -46,21 +46,30 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-
 router.post("/signup", upload.single('profilePic'), async (req, res) => {
 
-  console.log('req.file.filename',req.file.filename);
 
-  const { fullName, email, password } = req.body;
-  console.log('fullName', fullName)
+  const { fullName, email, password, profileImageURL } = req.body;
+
+  console.log('User details:', { fullName, email, password, profileImageURL });
+
+
+  if (req.file) {
+    console.log('Uploaded file:', req.file.filename);
+    profileImageURL = `/images/${req.file.filename}`;
+  }
+
+
   await User.create({
     fullName,
     email,
     password,
-    profileImageURL: `/images/${req.file.filename}`,
-
+    profileImageURL,
   });
+
   return res.redirect("/");
 });
+
+
 
 module.exports = router;

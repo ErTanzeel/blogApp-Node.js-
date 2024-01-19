@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 8000;
 mongoose.set('strictQuery', false); // Set strictQuery option
 
 mongoose
-  .connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/Tanzeel', { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URL , { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(error => console.error(error));
 
